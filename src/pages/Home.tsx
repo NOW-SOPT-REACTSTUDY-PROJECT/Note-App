@@ -1,8 +1,22 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import Title from "../componenets/Title";
 import Toggle from "../componenets/Toggle";
+import NoteInput from "../componenets/Noteinput";
+import NoteList from "../componenets/NoteList";
 
-function Home() {
+interface NoteType {
+  title: string;
+  content: string;
+}
+
+const Home: React.FC = () => {
+  const [notes, setNotes] = useState<NoteType[]>([]);
+
+  const addNote = (note: NoteType) => {
+    setNotes([...notes, note]);
+  };
+
   return (
     <HomeWrapper>
       <HomeContainer>
@@ -10,10 +24,12 @@ function Home() {
           <Title />
           <Toggle />
         </HomeHeader>
+        <NoteInput addNote={addNote} />
+        <NoteList notes={notes} />
       </HomeContainer>
     </HomeWrapper>
   );
-}
+};
 
 export default Home;
 
@@ -30,17 +46,21 @@ const HomeWrapper = styled.div`
 
 const HomeContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 50%;
   height: 80vh;
   border-radius: 5rem;
   background-color: #f2f3f5;
+  padding: 2rem;
 `;
 
 const HomeHeader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
   height: 10rem;
+  margin-bottom: 2rem;
 `;
