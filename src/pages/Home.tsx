@@ -31,7 +31,6 @@ const HomeWrapper = styled.div`
 const HomeContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 50%;
   height: 80vh;
   border-radius: 5rem;
@@ -40,4 +39,8 @@ const HomeContainer = styled.div`
 
 const HomeHeader = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 10rem;
 `;
