@@ -9,14 +9,29 @@ interface NoteType {
 
 interface NoteListProps {
   notes: NoteType[];
+  onEditNote: (index: number, newTitle: string, newContent: string) => void;
+  onDeleteNote: (index: number) => void;
   onAddNewNote: () => void;
 }
 
-const NoteList: React.FC<NoteListProps> = ({ notes, onAddNewNote }) => {
+const NoteList: React.FC<NoteListProps> = ({
+  notes,
+  onEditNote,
+  onDeleteNote,
+  onAddNewNote,
+}) => {
   return (
     <List>
       {notes.map((note, index) => (
-        <Note key={index} title={note.title} content={note.content} />
+        <Note
+          key={index}
+          title={note.title}
+          content={note.content}
+          onEdit={(newTitle, newContent) =>
+            onEditNote(index, newTitle, newContent)
+          }
+          onDelete={() => onDeleteNote(index)}
+        />
       ))}
       <AddButton onClick={onAddNewNote}>새 메모 추가</AddButton>
     </List>

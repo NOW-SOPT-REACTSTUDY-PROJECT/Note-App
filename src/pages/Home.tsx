@@ -19,6 +19,18 @@ const Home: React.FC = () => {
     setShowNoteInput(false);
   };
 
+  const editNote = (index: number, newTitle: string, newContent: string) => {
+    const updatedNotes = notes.map((note, i) =>
+      i === index ? { title: newTitle, content: newContent } : note
+    );
+    setNotes(updatedNotes);
+  };
+
+  const deleteNote = (index: number) => {
+    const updatedNotes = notes.filter((_, i) => i !== index);
+    setNotes(updatedNotes);
+  };
+
   return (
     <HomeWrapper>
       <HomeContainer>
@@ -29,7 +41,14 @@ const Home: React.FC = () => {
         {showNoteInput ? (
           <NoteInput addNote={addNote} />
         ) : (
-          <NoteList notes={notes} onAddNewNote={() => setShowNoteInput(true)} />
+          <>
+            <NoteList
+              notes={notes}
+              onEditNote={editNote}
+              onDeleteNote={deleteNote}
+              onAddNewNote={() => setShowNoteInput(true)}
+            />
+          </>
         )}
       </HomeContainer>
     </HomeWrapper>
