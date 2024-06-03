@@ -12,9 +12,11 @@ interface NoteType {
 
 const Home: React.FC = () => {
   const [notes, setNotes] = useState<NoteType[]>([]);
+  const [showNoteInput, setShowNoteInput] = useState(true);
 
   const addNote = (note: NoteType) => {
     setNotes([...notes, note]);
+    setShowNoteInput(false);
   };
 
   return (
@@ -24,8 +26,11 @@ const Home: React.FC = () => {
           <Title />
           <Toggle />
         </HomeHeader>
-        <NoteInput addNote={addNote} />
-        <NoteList notes={notes} />
+        {showNoteInput ? (
+          <NoteInput addNote={addNote} />
+        ) : (
+          <NoteList notes={notes} onAddNewNote={() => setShowNoteInput(true)} />
+        )}
       </HomeContainer>
     </HomeWrapper>
   );

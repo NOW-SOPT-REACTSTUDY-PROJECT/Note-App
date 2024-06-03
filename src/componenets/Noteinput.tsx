@@ -60,8 +60,8 @@ const Textarea = styled.textarea`
 
 const Button = styled.button`
   padding: 2rem;
-  border-radius: 0.25rem;
-  border: none;
+  border-radius: 1rem;
+  border: 1px solid #ccc;
   background-color: lightgray;
   font-size: 3rem;
   color: white;
