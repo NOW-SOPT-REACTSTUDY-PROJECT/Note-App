@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import Title from "../componenets/Title";
 import Toggle from "../componenets/Toggle";
@@ -15,7 +15,7 @@ interface NoteType {
 const Home: React.FC = () => {
   const [notes, setNotes] = useState<NoteType[]>([]);
   const [showNoteInput, setShowNoteInput] = useState(true);
-  const [sortOption, setSortOption] = useState("recentlyCreated");
+  const sortRef = useRef<HTMLSelectElement>(null);
 
   const addNote = (note: NoteType) => {
     setNotes([...notes, note]);
@@ -41,18 +41,17 @@ const Home: React.FC = () => {
     setNotes(updatedNotes);
   };
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortOption(e.target.value);
+  const getSortedNotes = () => {
+    const sortOption = sortRef.current?.value;
+    return notes.sort((a, b) => {
+      if (sortOption === "recentlyCreated") {
+        return b.createdAt.getTime() - a.createdAt.getTime();
+      } else if (sortOption === "recentlyUpdated") {
+        return b.updatedAt.getTime() - a.updatedAt.getTime();
+      }
+      return 0;
+    });
   };
-
-  const sortedNotes = notes.sort((a, b) => {
-    if (sortOption === "recentlyCreated") {
-      return b.createdAt.getTime() - a.createdAt.getTime();
-    } else if (sortOption === "recentlyUpdated") {
-      return b.updatedAt.getTime() - a.updatedAt.getTime();
-    }
-    return 0;
-  });
 
   return (
     <HomeWrapper>
@@ -61,7 +60,7 @@ const Home: React.FC = () => {
           <Title />
           <Toggle />
         </HomeHeader>
-        <SortDropdown onChange={handleSortChange}>
+        <SortDropdown ref={sortRef} onChange={() => setNotes([...notes])}>
           <option value="recentlyCreated">최근 생성순</option>
           <option value="recentlyUpdated">최신 수정순</option>
         </SortDropdown>
@@ -70,7 +69,7 @@ const Home: React.FC = () => {
         ) : (
           <>
             <NoteList
-              notes={sortedNotes}
+              notes={getSortedNotes()}
               onEditNote={editNote}
               onDeleteNote={deleteNote}
               onAddNewNote={() => setShowNoteInput(true)}
