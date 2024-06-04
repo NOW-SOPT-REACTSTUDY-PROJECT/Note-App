@@ -8,11 +8,14 @@ import NoteList from "../componenets/NoteList";
 interface NoteType {
   title: string;
   content: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const Home: React.FC = () => {
   const [notes, setNotes] = useState<NoteType[]>([]);
   const [showNoteInput, setShowNoteInput] = useState(true);
+  const [sortOption, setSortOption] = useState("recentlyCreated");
 
   const addNote = (note: NoteType) => {
     setNotes([...notes, note]);
@@ -21,7 +24,14 @@ const Home: React.FC = () => {
 
   const editNote = (index: number, newTitle: string, newContent: string) => {
     const updatedNotes = notes.map((note, i) =>
-      i === index ? { title: newTitle, content: newContent } : note
+      i === index
+        ? {
+            ...note,
+            title: newTitle,
+            content: newContent,
+            updatedAt: new Date(),
+          }
+        : note
     );
     setNotes(updatedNotes);
   };
@@ -31,6 +41,19 @@ const Home: React.FC = () => {
     setNotes(updatedNotes);
   };
 
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortOption(e.target.value);
+  };
+
+  const sortedNotes = notes.sort((a, b) => {
+    if (sortOption === "recentlyCreated") {
+      return b.createdAt.getTime() - a.createdAt.getTime();
+    } else if (sortOption === "recentlyUpdated") {
+      return b.updatedAt.getTime() - a.updatedAt.getTime();
+    }
+    return 0;
+  });
+
   return (
     <HomeWrapper>
       <HomeContainer>
@@ -38,12 +61,16 @@ const Home: React.FC = () => {
           <Title />
           <Toggle />
         </HomeHeader>
+        <SortDropdown onChange={handleSortChange}>
+          <option value="recentlyCreated">최근 생성순</option>
+          <option value="recentlyUpdated">최신 수정순</option>
+        </SortDropdown>
         {showNoteInput ? (
           <NoteInput addNote={addNote} />
         ) : (
           <>
             <NoteList
-              notes={notes}
+              notes={sortedNotes}
               onEditNote={editNote}
               onDeleteNote={deleteNote}
               onAddNewNote={() => setShowNoteInput(true)}
@@ -87,4 +114,12 @@ const HomeHeader = styled.div`
   width: 100%;
   height: 10rem;
   margin-bottom: 2rem;
+`;
+
+const SortDropdown = styled.select`
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ccc;
 `;

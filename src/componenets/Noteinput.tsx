@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 interface NoteInputProps {
-  addNote: (note: { title: string; content: string }) => void;
+  addNote: (note: {
+    title: string;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }) => void;
 }
 
 const NoteInput: React.FC<NoteInputProps> = ({ addNote }) => {
@@ -11,7 +16,13 @@ const NoteInput: React.FC<NoteInputProps> = ({ addNote }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addNote({ title, content });
+    const now = new Date();
+    addNote({
+      title,
+      content,
+      createdAt: now,
+      updatedAt: now,
+    });
     setTitle("");
     setContent("");
   };
@@ -60,8 +71,8 @@ const Textarea = styled.textarea`
 
 const Button = styled.button`
   padding: 2rem;
-  border-radius: 1rem;
-  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  border: none;
   background-color: lightgray;
   font-size: 3rem;
   color: white;
