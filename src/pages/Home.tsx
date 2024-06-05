@@ -1,4 +1,3 @@
-// Home.tsx
 import { useState } from "react";
 import styled from "styled-components";
 import Title from "../componenets/Title";
@@ -6,57 +5,15 @@ import Toggle from "../componenets/Toggle";
 import NoteInput from "../componenets/Noteinput";
 import NoteList from "../componenets/NoteList";
 import CustomDropdown from "../componenets/CustomDropDown";
-
-interface NoteType {
-  title: string;
-  content: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { NoteType, useNotes } from "../hooks/useNotes";
 
 function Home() {
-  const [notes, setNotes] = useState<NoteType[]>([]);
+  const { notes, addNote, editNote, deleteNote, handleSortChange } = useNotes();
   const [showNoteInput, setShowNoteInput] = useState(true);
-  const [sortOption, setSortOption] = useState("recentlyCreated");
 
-  const addNote = (note: NoteType) => {
-    setNotes([...notes, note]);
+  const handleAddNote = (note: NoteType) => {
+    addNote(note);
     setShowNoteInput(false);
-  };
-
-  const editNote = (index: number, newTitle: string, newContent: string) => {
-    const updatedNotes = notes.map((note, i) =>
-      i === index
-        ? {
-            ...note,
-            title: newTitle,
-            content: newContent,
-            updatedAt: new Date(),
-          }
-        : note
-    );
-    setNotes(updatedNotes);
-  };
-
-  const deleteNote = (index: number) => {
-    const updatedNotes = notes.filter((_, i) => i !== index);
-    setNotes(updatedNotes);
-  };
-
-  const getSortedNotes = () => {
-    return notes.sort((a, b) => {
-      if (sortOption === "recentlyCreated") {
-        return b.createdAt.getTime() - a.createdAt.getTime();
-      } else if (sortOption === "recentlyUpdated") {
-        return b.updatedAt.getTime() - a.updatedAt.getTime();
-      }
-      return 0;
-    });
-  };
-
-  const handleSortChange = (sortOption: string) => {
-    setSortOption(sortOption);
-    setNotes([...notes]); // Trigger re-render
   };
 
   return (
@@ -74,16 +31,14 @@ function Home() {
           <Toggle />
         </HomeHeader>
         {showNoteInput ? (
-          <NoteInput addNote={addNote} />
+          <NoteInput addNote={handleAddNote} />
         ) : (
-          <>
-            <NoteList
-              notes={getSortedNotes()}
-              onEditNote={editNote}
-              onDeleteNote={deleteNote}
-              onAddNewNote={() => setShowNoteInput(true)}
-            />
-          </>
+          <NoteList
+            notes={notes}
+            onEditNote={editNote}
+            onDeleteNote={deleteNote}
+            onAddNewNote={() => setShowNoteInput(true)}
+          />
         )}
       </HomeContainer>
     </HomeWrapper>
