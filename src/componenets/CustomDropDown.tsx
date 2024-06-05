@@ -61,11 +61,11 @@ export default CustomDropdown;
 
 const DropdownWrapper = styled.div`
   position: relative;
-  width: 200px;
+  width: 10rem;
 `;
 
 const DropdownHeader = styled.div`
-  padding: 10px;
+  padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #fff;
@@ -87,7 +87,7 @@ const DropdownList = styled.ul`
 `;
 
 const DropdownItem = styled.li`
-  padding: 10px;
+  padding: 1rem;
   cursor: pointer;
   &:hover {
     background-color: #f0f0f0;

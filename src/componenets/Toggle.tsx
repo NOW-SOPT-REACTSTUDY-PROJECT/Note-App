@@ -23,8 +23,8 @@ export default Toggle;
 
 const ToggleBtn = styled.button<ToggleBtnProps>`
   position: absolute;
-  right: 50rem;
-  top: 12rem;
+  right: 43rem;
+  top: 15rem;
   font-size: 2rem;
   font-weight: 900;
   width: 10rem;
