@@ -21,6 +21,9 @@ function Home() {
       <HomeContainer>
         <HomeHeader>
           <Title />
+          <Toggle />
+        </HomeHeader>
+        {!showNoteInput && (
           <CustomDropdown
             options={[
               { value: "recentlyCreated", label: "최근 생성순" },
@@ -28,8 +31,7 @@ function Home() {
             ]}
             onChange={handleSortChange}
           />
-          <Toggle />
-        </HomeHeader>
+        )}
         {showNoteInput ? (
           <NoteInput addNote={handleAddNote} />
         ) : (
