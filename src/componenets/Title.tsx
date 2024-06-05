@@ -7,8 +7,7 @@ function Title() {
 export default Title;
 
 const TitleFont = styled.p`
-  position: absolute;
-  top: 15rem;
+  display: flex;
   font-size: 5rem;
   font-weight: 900;
 `;

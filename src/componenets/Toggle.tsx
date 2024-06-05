@@ -22,13 +22,13 @@ function Toggle() {
 export default Toggle;
 
 const ToggleBtn = styled.button<ToggleBtnProps>`
-  position: absolute;
-  right: 43rem;
-  top: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 2rem;
   font-weight: 900;
-  width: 10rem;
-  height: 5rem;
+  width: 7rem;
+  height: 4rem;
   background-color: ${(props) => (props.toggled ? "lightgray" : "gray")};
   color: white;
   border: none;

@@ -53,16 +53,19 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
+  padding-top: 7rem;
 `;
 
 const Input = styled.input`
   padding: 2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   border-radius: 1rem;
   border: 1px solid #ccc;
 `;
 
 const Textarea = styled.textarea`
+  height: 100rem;
   padding: 2rem 0 8rem 2rem;
   margin-bottom: 1rem;
   border-radius: 1rem;
@@ -71,7 +74,7 @@ const Textarea = styled.textarea`
 
 const Button = styled.button`
   padding: 2rem;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   border: none;
   background-color: lightgray;
   font-size: 3rem;

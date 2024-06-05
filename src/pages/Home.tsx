@@ -64,15 +64,15 @@ function Home() {
       <HomeContainer>
         <HomeHeader>
           <Title />
+          <CustomDropdown
+            options={[
+              { value: "recentlyCreated", label: "최근 생성순" },
+              { value: "recentlyUpdated", label: "최신 수정순" },
+            ]}
+            onChange={handleSortChange}
+          />
           <Toggle />
         </HomeHeader>
-        <CustomDropdown
-          options={[
-            { value: "recentlyCreated", label: "최근 생성순" },
-            { value: "recentlyUpdated", label: "최신 수정순" },
-          ]}
-          onChange={handleSortChange}
-        />
         {showNoteInput ? (
           <NoteInput addNote={addNote} />
         ) : (
@@ -113,13 +113,16 @@ const HomeContainer = styled.div`
   border-radius: 5rem;
   background-color: #f2f3f5;
   padding: 2rem;
+  position: relative;
 `;
 
 const HomeHeader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 12rem;
   width: 100%;
-  height: 10rem;
-  margin-bottom: 2rem;
+  margin-left: 32rem;
+  gap: 6rem;
 `;
