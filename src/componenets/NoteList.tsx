@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Note from "./Note";
 
@@ -14,12 +13,12 @@ interface NoteListProps {
   onAddNewNote: () => void;
 }
 
-const NoteList: React.FC<NoteListProps> = ({
+const NoteList = ({
   notes,
   onEditNote,
   onDeleteNote,
   onAddNewNote,
-}) => {
+}: NoteListProps) => {
   return (
     <List>
       {notes.map((note, index) => (

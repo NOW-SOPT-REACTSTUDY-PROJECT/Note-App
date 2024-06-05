@@ -10,7 +10,7 @@ interface NoteInputProps {
   }) => void;
 }
 
-const NoteInput: React.FC<NoteInputProps> = ({ addNote }) => {
+const NoteInput = ({ addNote }: NoteInputProps) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 

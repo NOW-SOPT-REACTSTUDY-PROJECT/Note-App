@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import styled from "styled-components";
 import Title from "../componenets/Title";
 import Toggle from "../componenets/Toggle";
@@ -12,7 +12,7 @@ interface NoteType {
   updatedAt: Date;
 }
 
-const Home: React.FC = () => {
+const Home = () => {
   const [notes, setNotes] = useState<NoteType[]>([]);
   const [showNoteInput, setShowNoteInput] = useState(true);
   const sortRef = useRef<HTMLSelectElement>(null);

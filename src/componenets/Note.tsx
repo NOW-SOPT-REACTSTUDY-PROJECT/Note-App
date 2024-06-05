@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 interface NoteProps {
@@ -8,7 +8,7 @@ interface NoteProps {
   onDelete: () => void;
 }
 
-const Note: React.FC<NoteProps> = ({ title, content, onEdit, onDelete }) => {
+const Note = ({ title, content, onEdit, onDelete }: NoteProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
