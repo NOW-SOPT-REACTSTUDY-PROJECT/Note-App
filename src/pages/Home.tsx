@@ -81,5 +81,5 @@ const HomeHeader = styled.div`
   top: 12rem;
   width: 100%;
   margin-left: 32rem;
-  gap: 6rem;
+  gap: 20rem;
 `;

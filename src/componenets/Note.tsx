@@ -50,40 +50,39 @@ export default Note;
 
 const NoteCard = styled.div`
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.3rem;
   border-radius: 1rem;
   border: 1px solid #ccc;
   background-color: #fff;
 `;
 
 const NoteTitle = styled.h3`
-  margin: 0;
   margin-bottom: 1rem;
   font-size: 2.5rem;
   color: red;
 `;
 
 const NoteContent = styled.p`
-  margin: 0;
   font-size: 3rem;
   color: blue;
 `;
 
 const Input = styled.input`
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   border-radius: 1rem;
   border: 1px solid #ccc;
   width: 100%;
+  height: 3rem;
 `;
 
 const Textarea = styled.textarea`
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   border-radius: 1rem;
   border: 1px solid #ccc;
   width: 100%;
-  height: 100px;
+  height: 6rem;
 `;
 
 const Button = styled.button`
