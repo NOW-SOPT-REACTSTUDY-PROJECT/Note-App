@@ -1,9 +1,11 @@
-import { useState, useRef } from "react";
+// Home.tsx
+import { useState } from "react";
 import styled from "styled-components";
 import Title from "../componenets/Title";
 import Toggle from "../componenets/Toggle";
 import NoteInput from "../componenets/Noteinput";
 import NoteList from "../componenets/NoteList";
+import CustomDropdown from "../componenets/CustomDropDown";
 
 interface NoteType {
   title: string;
@@ -12,10 +14,10 @@ interface NoteType {
   updatedAt: Date;
 }
 
-const Home = () => {
+function Home() {
   const [notes, setNotes] = useState<NoteType[]>([]);
   const [showNoteInput, setShowNoteInput] = useState(true);
-  const sortRef = useRef<HTMLSelectElement>(null);
+  const [sortOption, setSortOption] = useState("recentlyCreated");
 
   const addNote = (note: NoteType) => {
     setNotes([...notes, note]);
@@ -42,7 +44,6 @@ const Home = () => {
   };
 
   const getSortedNotes = () => {
-    const sortOption = sortRef.current?.value;
     return notes.sort((a, b) => {
       if (sortOption === "recentlyCreated") {
         return b.createdAt.getTime() - a.createdAt.getTime();
@@ -53,6 +54,11 @@ const Home = () => {
     });
   };
 
+  const handleSortChange = (sortOption: string) => {
+    setSortOption(sortOption);
+    setNotes([...notes]); // Trigger re-render
+  };
+
   return (
     <HomeWrapper>
       <HomeContainer>
@@ -60,10 +66,13 @@ const Home = () => {
           <Title />
           <Toggle />
         </HomeHeader>
-        <SortDropdown ref={sortRef} onChange={() => setNotes([...notes])}>
-          <option value="recentlyCreated">최근 생성순</option>
-          <option value="recentlyUpdated">최신 수정순</option>
-        </SortDropdown>
+        <CustomDropdown
+          options={[
+            { value: "recentlyCreated", label: "최근 생성순" },
+            { value: "recentlyUpdated", label: "최신 수정순" },
+          ]}
+          onChange={handleSortChange}
+        />
         {showNoteInput ? (
           <NoteInput addNote={addNote} />
         ) : (
@@ -79,7 +88,7 @@ const Home = () => {
       </HomeContainer>
     </HomeWrapper>
   );
-};
+}
 
 export default Home;
 
@@ -113,12 +122,4 @@ const HomeHeader = styled.div`
   width: 100%;
   height: 10rem;
   margin-bottom: 2rem;
-`;
-
-const SortDropdown = styled.select`
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border-radius: 0.25rem;
-  border: 1px solid #ccc;
 `;
