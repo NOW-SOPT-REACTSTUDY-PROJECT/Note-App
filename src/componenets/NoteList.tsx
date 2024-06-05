@@ -20,30 +20,42 @@ const NoteList = ({
   onAddNewNote,
 }: NoteListProps) => {
   return (
-    <List>
-      {notes.map((note, index) => (
-        <Note
-          key={index}
-          title={note.title}
-          content={note.content}
-          onEdit={(newTitle, newContent) =>
-            onEditNote(index, newTitle, newContent)
-          }
-          onDelete={() => onDeleteNote(index)}
-        />
-      ))}
+    <ListWrapper>
+      <List>
+        {notes.map((note, index) => (
+          <Note
+            key={index}
+            title={note.title}
+            content={note.content}
+            onEdit={(newTitle, newContent) =>
+              onEditNote(index, newTitle, newContent)
+            }
+            onDelete={() => onDeleteNote(index)}
+          />
+        ))}
+      </List>
       <AddButton onClick={onAddNewNote}>새 메모 추가</AddButton>
-    </List>
+    </ListWrapper>
   );
 };
 
 export default NoteList;
 
-const List = styled.div`
-  display: flex;
-  flex-direction: column;
+const ListWrapper = styled.div`
   width: 100%;
   margin-top: 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const List = styled.div`
+  width: 100%;
+  max-height: 40rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 `;
 
 const AddButton = styled.button`
