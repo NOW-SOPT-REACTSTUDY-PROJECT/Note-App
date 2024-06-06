@@ -1,4 +1,3 @@
-// CustomDropdown.tsx
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
@@ -66,9 +65,10 @@ const DropdownWrapper = styled.div`
 
 const DropdownHeader = styled.div`
   padding: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid ${(props) => props.theme.color};
   border-radius: 4px;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.dropdownBackground};
+  color: ${(props) => props.theme.dropdownColor};
   cursor: pointer;
 `;
 
@@ -77,9 +77,9 @@ const DropdownList = styled.ul`
   top: 100%;
   left: 0;
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid ${(props) => props.theme.color};
   border-radius: 4px;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.dropdownBackground};
   list-style: none;
   padding: 0;
   margin: 0;
@@ -89,7 +89,8 @@ const DropdownList = styled.ul`
 const DropdownItem = styled.li`
   padding: 1rem;
   cursor: pointer;
+  color: ${(props) => props.theme.dropdownColor};
   &:hover {
-    background-color: #f0f0f0;
+    background-color: ${(props) => props.theme.background};
   }
 `;

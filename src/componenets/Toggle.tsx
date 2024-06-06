@@ -5,11 +5,12 @@ interface ToggleBtnProps {
   toggled: boolean;
 }
 
-function Toggle() {
+function Toggle({ toggleTheme }: { toggleTheme: () => void }) {
   const [isToggled, setIsToggled] = useState(false);
 
   const handleToggle = () => {
     setIsToggled(!isToggled);
+    toggleTheme();
   };
 
   return (
@@ -29,7 +30,8 @@ const ToggleBtn = styled.button<ToggleBtnProps>`
   font-weight: 900;
   width: 7rem;
   height: 4rem;
-  background-color: ${(props) => (props.toggled ? "lightgray" : "gray")};
+  background-color: ${(props) =>
+    props.toggled ? props.theme.toggleBackground : "gray"};
   color: white;
   border: none;
   border-radius: 3rem;
