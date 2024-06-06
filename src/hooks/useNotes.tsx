@@ -1,4 +1,3 @@
-// useNotes.tsx
 import { useState } from "react";
 
 export interface NoteType {

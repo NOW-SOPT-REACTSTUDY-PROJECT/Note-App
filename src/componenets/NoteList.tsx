@@ -1,4 +1,3 @@
-// NoteList.tsx
 import styled from "styled-components";
 import Note from "./Note";
 

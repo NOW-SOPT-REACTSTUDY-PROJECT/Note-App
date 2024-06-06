@@ -1,4 +1,3 @@
-// Home.tsx
 import { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Title from "../componenets/Title";

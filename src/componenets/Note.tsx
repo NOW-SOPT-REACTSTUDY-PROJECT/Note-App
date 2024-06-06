@@ -1,4 +1,3 @@
-// Note.tsx
 import { useState } from "react";
 import styled from "styled-components";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
