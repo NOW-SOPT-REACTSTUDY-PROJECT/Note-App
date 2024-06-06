@@ -1,3 +1,4 @@
+// NoteInput.tsx
 import React, { useState } from "react";
 import styled from "styled-components";
 
@@ -7,6 +8,7 @@ interface NoteInputProps {
     content: string;
     createdAt: Date;
     updatedAt: Date;
+    bookmarked: boolean;
   }) => void;
 }
 
@@ -22,6 +24,7 @@ const NoteInput = ({ addNote }: NoteInputProps) => {
       content,
       createdAt: now,
       updatedAt: now,
+      bookmarked: false, // Default value for new notes
     });
     setTitle("");
     setContent("");

@@ -1,15 +1,20 @@
+// NoteList.tsx
 import styled from "styled-components";
 import Note from "./Note";
 
 interface NoteType {
   title: string;
   content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  bookmarked: boolean;
 }
 
 interface NoteListProps {
   notes: NoteType[];
   onEditNote: (index: number, newTitle: string, newContent: string) => void;
   onDeleteNote: (index: number) => void;
+  onToggleBookmark: (index: number) => void;
   onAddNewNote: () => void;
 }
 
@@ -17,6 +22,7 @@ const NoteList = ({
   notes,
   onEditNote,
   onDeleteNote,
+  onToggleBookmark,
   onAddNewNote,
 }: NoteListProps) => {
   return (
@@ -27,10 +33,12 @@ const NoteList = ({
             key={index}
             title={note.title}
             content={note.content}
+            bookmarked={note.bookmarked}
             onEdit={(newTitle, newContent) =>
               onEditNote(index, newTitle, newContent)
             }
             onDelete={() => onDeleteNote(index)}
+            onToggleBookmark={() => onToggleBookmark(index)}
           />
         ))}
       </List>

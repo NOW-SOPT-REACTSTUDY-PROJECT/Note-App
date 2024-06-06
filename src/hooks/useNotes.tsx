@@ -1,3 +1,4 @@
+// useNotes.tsx
 import { useState } from "react";
 
 export interface NoteType {
@@ -5,6 +6,7 @@ export interface NoteType {
   content: string;
   createdAt: Date;
   updatedAt: Date;
+  bookmarked: boolean;
 }
 
 export const useNotes = () => {
@@ -12,7 +14,7 @@ export const useNotes = () => {
   const [sortOption, setSortOption] = useState("recentlyCreated");
 
   const addNote = (note: NoteType) => {
-    setNotes([...notes, note]);
+    setNotes([...notes, { ...note, bookmarked: false }]);
   };
 
   const editNote = (index: number, newTitle: string, newContent: string) => {
@@ -34,7 +36,17 @@ export const useNotes = () => {
     setNotes(updatedNotes);
   };
 
+  const toggleBookmark = (index: number) => {
+    const updatedNotes = notes.map((note, i) =>
+      i === index ? { ...note, bookmarked: !note.bookmarked } : note
+    );
+    setNotes(updatedNotes);
+  };
+
   const getSortedNotes = () => {
+    if (sortOption === "bookmarked") {
+      return notes.filter((note) => note.bookmarked);
+    }
     return notes.sort((a, b) => {
       if (sortOption === "recentlyCreated") {
         return b.createdAt.getTime() - a.createdAt.getTime();
@@ -55,6 +67,7 @@ export const useNotes = () => {
     addNote,
     editNote,
     deleteNote,
+    toggleBookmark,
     handleSortChange,
   };
 };

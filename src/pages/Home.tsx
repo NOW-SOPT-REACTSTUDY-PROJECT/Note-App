@@ -1,3 +1,4 @@
+// Home.tsx
 import { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Title from "../componenets/Title";
@@ -9,7 +10,14 @@ import { NoteType, useNotes } from "../hooks/useNotes";
 import { lightTheme, darkTheme } from "../theme";
 
 function Home() {
-  const { notes, addNote, editNote, deleteNote, handleSortChange } = useNotes();
+  const {
+    notes,
+    addNote,
+    editNote,
+    deleteNote,
+    toggleBookmark,
+    handleSortChange,
+  } = useNotes();
   const [showNoteInput, setShowNoteInput] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -35,6 +43,7 @@ function Home() {
               options={[
                 { value: "recentlyCreated", label: "최근 생성순" },
                 { value: "recentlyUpdated", label: "최신 수정순" },
+                { value: "bookmarked", label: "북마크된 노트" },
               ]}
               onChange={handleSortChange}
             />
@@ -46,6 +55,7 @@ function Home() {
               notes={notes}
               onEditNote={editNote}
               onDeleteNote={deleteNote}
+              onToggleBookmark={toggleBookmark}
               onAddNewNote={() => setShowNoteInput(true)}
             />
           )}

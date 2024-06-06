@@ -1,14 +1,25 @@
+// Note.tsx
 import { useState } from "react";
 import styled from "styled-components";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 interface NoteProps {
   title: string;
   content: string;
+  bookmarked: boolean;
   onEdit: (newTitle: string, newContent: string) => void;
   onDelete: () => void;
+  onToggleBookmark: () => void;
 }
 
-const Note = ({ title, content, onEdit, onDelete }: NoteProps) => {
+const Note = ({
+  title,
+  content,
+  bookmarked,
+  onEdit,
+  onDelete,
+  onToggleBookmark,
+}: NoteProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
@@ -31,15 +42,22 @@ const Note = ({ title, content, onEdit, onDelete }: NoteProps) => {
             value={newContent}
             onChange={(e) => setNewContent(e.target.value)}
           />
-          <Button onClick={handleSave}>Save</Button>
-          <Button onClick={() => setIsEditing(false)}>Cancel</Button>
+          <ButtonGroup>
+            <Button onClick={handleSave}>Save</Button>
+            <Button onClick={() => setIsEditing(false)}>Cancel</Button>
+          </ButtonGroup>
         </>
       ) : (
         <>
           <NoteTitle>{title}</NoteTitle>
           <NoteContent>{content}</NoteContent>
-          <Button onClick={() => setIsEditing(true)}>Edit</Button>
-          <Button onClick={onDelete}>Delete</Button>
+          <ButtonGroup>
+            <Button onClick={() => setIsEditing(true)}>Edit</Button>
+            <Button onClick={onDelete}>Delete</Button>
+            <BookmarkButton onClick={onToggleBookmark} bookmarked={bookmarked}>
+              {bookmarked ? <FaBookmark /> : <FaRegBookmark />}
+            </BookmarkButton>
+          </ButtonGroup>
         </>
       )}
     </NoteCard>
@@ -85,10 +103,14 @@ const Textarea = styled.textarea`
   height: 6rem;
 `;
 
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
 const Button = styled.button`
   width: 7rem;
   padding: 1rem;
-  margin-right: 1rem;
   border-radius: 1rem;
   border: none;
   background-color: lightgray;
@@ -99,4 +121,17 @@ const Button = styled.button`
   &:hover {
     background-color: gray;
   }
+`;
+
+const BookmarkButton = styled(Button)<{ bookmarked: boolean }>`
+  background-color: ${({ bookmarked }) => (bookmarked ? "gray" : "lightgray")};
+
+  &:hover {
+    background-color: ${({ bookmarked }) => (bookmarked ? "darkgray" : "gray")};
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
 `;
