@@ -96,8 +96,8 @@ const HomeHeader = styled.div`
   justify-content: center;
   align-items: center;
   position: fixed;
-  top: 12rem;
+  top: 11rem;
   width: 100%;
-  margin-left: 32rem;
-  gap: 20rem;
+  margin-left: 15rem;
+  gap: 5rem;
 `;

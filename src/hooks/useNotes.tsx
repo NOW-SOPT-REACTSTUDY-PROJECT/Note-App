@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export interface NoteType {
   title: string;
@@ -12,8 +12,27 @@ export const useNotes = () => {
   const [notes, setNotes] = useState<NoteType[]>([]);
   const [sortOption, setSortOption] = useState("recentlyCreated");
 
+  useEffect(() => {
+    const storedNotes = localStorage.getItem("notes");
+    if (storedNotes) {
+      setNotes(
+        (JSON.parse(storedNotes) as NoteType[]).map((note) => ({
+          ...note,
+          createdAt: new Date(note.createdAt),
+          updatedAt: new Date(note.updatedAt),
+        }))
+      );
+    }
+  }, []);
+
+  const saveNotesToLocalStorage = (notes: NoteType[]) => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  };
+
   const addNote = (note: NoteType) => {
-    setNotes([...notes, { ...note, bookmarked: false }]);
+    const newNotes = [...notes, { ...note, bookmarked: false }];
+    setNotes(newNotes);
+    saveNotesToLocalStorage(newNotes);
   };
 
   const editNote = (index: number, newTitle: string, newContent: string) => {
@@ -28,11 +47,13 @@ export const useNotes = () => {
         : note
     );
     setNotes(updatedNotes);
+    saveNotesToLocalStorage(updatedNotes);
   };
 
   const deleteNote = (index: number) => {
     const updatedNotes = notes.filter((_, i) => i !== index);
     setNotes(updatedNotes);
+    saveNotesToLocalStorage(updatedNotes);
   };
 
   const toggleBookmark = (index: number) => {
@@ -40,6 +61,7 @@ export const useNotes = () => {
       i === index ? { ...note, bookmarked: !note.bookmarked } : note
     );
     setNotes(updatedNotes);
+    saveNotesToLocalStorage(updatedNotes);
   };
 
   const getSortedNotes = () => {
@@ -58,7 +80,6 @@ export const useNotes = () => {
 
   const handleSortChange = (sortOption: string) => {
     setSortOption(sortOption);
-    setNotes([...notes]);
   };
 
   return {

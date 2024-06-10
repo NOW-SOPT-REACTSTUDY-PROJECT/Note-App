@@ -44,7 +44,7 @@ const NoteInput = ({ addNote }: NoteInputProps) => {
         onChange={(e) => setContent(e.target.value)}
         required
       />
-      <Button type="submit">Create</Button>
+      <Button type="submit">메모 생성</Button>
     </Form>
   );
 };

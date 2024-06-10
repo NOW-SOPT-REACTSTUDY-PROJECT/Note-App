@@ -67,13 +67,13 @@ const List = styled.div`
 
 const AddButton = styled.button`
   position: fixed;
-  bottom: 11rem;
-  right: 50rem;
+  bottom: 10rem;
+  right: 33.5rem;
   padding: 2rem;
   margin-top: 1rem;
   border-radius: 1rem;
-  width: 92rem;
-  height: 7.4rem;
+  width: 60rem;
+  height: 7.5rem;
   border: 1px solid #ccc;
   background-color: lightgray;
   font-size: 3rem;
